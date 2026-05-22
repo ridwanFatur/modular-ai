@@ -1,0 +1,34 @@
+sources:
+  my-pg-source:
+    kind: postgres
+    host: 127.0.0.1
+    port: 5432
+    database: toolbox_db
+    user: postgres
+    password: secret
+
+tools:
+  search-hotels-by-location:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Search for hotels based on location.
+    parameters:
+      - name: location
+        type: string
+        description: The location of the hotel.
+    statement: SELECT id, name, location, price_tier FROM hotels WHERE location ILIKE '%' || $1 || '%';
+  book-hotel:
+    kind: postgres-sql
+    source: my-pg-source
+    description: >-
+        Book a hotel by its ID. If the hotel is successfully booked, returns a confirmation message.
+    parameters:
+      - name: hotel_id
+        type: integer
+        description: The ID of the hotel to book.
+    statement: UPDATE hotels SET booked = B'1' WHERE id = $1;
+
+toolsets:
+  hotel_toolset:
+    - search-hotels-by-location
+    - book-hotel
