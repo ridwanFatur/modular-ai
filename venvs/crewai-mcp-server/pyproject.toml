@@ -1,0 +1,71 @@
+[project]
+name = "sql-assistant-crew"
+version = "0.1.0"
+description = "Multi-agent SQL Assistant powered by CrewAI for natural language to SQL conversion"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+requires-python = ">=3.10,<3.14"
+
+# Core dependencies required for the project
+dependencies = [
+    # CrewAI framework for multi-agent orchestration
+    "crewai[tools]>=0.130.0,<1.0.0",
+    "crewai-tools>=0.47.1",
+    # Language model integrations
+    "langchain-openai>=0.1.0",
+    "langchain-community>=0.3.25",
+    # Web framework for API server
+    "flask>=3.1.1",
+    # UI framework for interactive interface
+    "streamlit>=1.45.1",
+    # Database operations
+    "pandas>=2.0.0",
+    # SQL formatting and parsing
+    "sqlparse>=0.4.0",
+    # Environment and configuration management
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.0",
+    # Data validation and serialization
+    "pydantic>=2.0.0",
+    # Monitoring and observability
+    "openlit>=1.33.23",
+    # Langfuse for tracing and observability
+    "langfuse>=2.0.0",
+    "openinference-instrumentation-crewai",
+    "openinference-instrumentation-litellm",
+    # HTTP client for testing
+    "requests>=2.31.0",
+    # MCP (Model Context Protocol) support
+    "crewai-tools[mcp]",
+    "mcp>=1.14.0",
+    "uvicorn>=0.30.0",
+    "notebook>=7.5.6",
+]
+
+# Build system configuration
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# Configure Hatchling to work with src directory structure
+[tool.hatch.build.targets.wheel]
+packages = ["src/SQL_assistant"]
+exclude = [
+    "*.pyc",
+    "__pycache__",
+    ".git",
+    ".env",
+    "*.sqlite",
+    "*.db",
+    "log/",
+    "data/",
+]
+
+# CrewAI specific configuration
+[tool.crewai]
+type = "crew"
+
+# Script entry points
+[project.scripts]
+mcp_server = "SQL_assistant.tools.mcp_server:main"
