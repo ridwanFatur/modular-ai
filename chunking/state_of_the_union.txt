@@ -1,0 +1,16 @@
+LangChain is an open-source framework used to build applications based on Large Language Models (LLMs).
+The framework provides abstractions for prompts, memory, chains, agents, and tools.
+
+With LangChain, developers can connect LLMs to various external data sources such as databases,
+APIs, PDF documents, and vector stores like FAISS, Chroma, or Elasticsearch.
+
+One of the important components in LangChain is the text splitter.
+A text splitter is used to break long documents into smaller chunks
+so they can be processed more efficiently by language models.
+
+RecursiveCharacterTextSplitter works by recursively splitting text
+based on separators such as paragraphs, new lines, spaces, and characters.
+This approach helps preserve semantic context as much as possible.
+
+The split text is usually embedded using an embedding model
+and stored in a vector database for retrieval-augmented generation (RAG) purposes.
